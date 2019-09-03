@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { Token } from '../../models/token';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -14,7 +15,8 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private authService: AuthenticationService) { 
+    private authService: AuthenticationService,
+    private router: Router) { 
       this.loginForm = this.formBuilder.group({
         username: [''],
         password: ['']
@@ -30,6 +32,7 @@ export class LoginComponent implements OnInit {
       this.token = token;
       this.authService.setToken(this.token.key)
       console.log(token);
+      this.router.navigate(['transactions'])
     })
   }
 

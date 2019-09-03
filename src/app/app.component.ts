@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { AuthenticationService } from './services/authentication.service';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +7,14 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'terran';
+  token: string;
+
+  constructor(private authService: AuthenticationService) {
+    this.token = this.authService.getToken();
+  }
+
+  logout() {
+    this.authService.removeToken();
+  }
+  
 }

@@ -1,8 +1,21 @@
-<h1>hello</h1>
-<button>
-    <a [routerLink]="['/transactions']">Transactions</a>
-</button>
-<button>
-    <a [routerLink]="['/login']">Login</a>
-</button>
+
+<div class="row">
+    <div class="col-lg-4"></div>
+    <div class="col-lg-4">
+            <div class="box">
+                    <button *ngIf="token">
+                            <a [routerLink]="['/transactions']">Transactions</a>
+                        </button>
+                        <button *ngIf="!token; else loggedIn">
+                            <a [routerLink]="['/login']">Login</a>
+                        </button>
+                        
+                        <ng-template #loggedIn>
+                            
+                        <h1>hello</h1>
+                        </ng-template>
+            </div>
+    </div>
+    <div class="col-lg-4"></div>
+</div>
 <router-outlet></router-outlet>

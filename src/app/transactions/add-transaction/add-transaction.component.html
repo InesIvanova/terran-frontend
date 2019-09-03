@@ -1,11 +1,17 @@
-<button class="btn btn-primary">
-    <a [routerLink]="['jurnal']"> Jurnal</a>
-</button>
-
 <div class="row">
     <div class="col-lg-4"></div>
     <div class="col-lg-4">
         <form [formGroup]="transactionForm" (ngSubmit)="sendTransaction()">
+            <div>
+                <ul class="nav nav-pills">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#">Income</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Expence</a>
+                    </li>
+                </ul>
+            </div>
             <div class="form-row">
                 <div class="form-group col-md-6">
                 <label for="inputDate">Date of transaction</label>

@@ -39,4 +39,8 @@ export class AuthenticationService {
   setToken(token) {
     localStorage.setItem('token', token);
   }
+
+  removeToken() {
+    localStorage.removeItem('token');
+  }
 }

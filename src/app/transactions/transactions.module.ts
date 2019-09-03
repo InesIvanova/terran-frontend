@@ -5,10 +5,16 @@ import { RouterModule, Routes } from '@angular/router';
 import { SharedModule } from '../shared/shared.module';
 import { AuthGuardService } from '../services/auth-guard.service';
 import { JurnalComponent } from './jurnal/jurnal.component';
+import { TransactionsComponent } from './transactions/transactions.component';
 
 const routes: Routes = [
   {
     path: '',
+    component: TransactionsComponent,
+    canActivate: [AuthGuardService]
+  },
+  {
+    path: 'add',
     component: AddTransactionComponent,
     canActivate: [AuthGuardService]
   },
@@ -22,7 +28,8 @@ const routes: Routes = [
 @NgModule({
   declarations: [
     AddTransactionComponent,
-    JurnalComponent
+    JurnalComponent,
+    TransactionsComponent
   ],
   imports: [
     CommonModule,
