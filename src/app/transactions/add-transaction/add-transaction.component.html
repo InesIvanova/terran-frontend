@@ -1,0 +1,47 @@
+<button class="btn btn-primary">
+    <a [routerLink]="['jurnal']"> Jurnal</a>
+</button>
+
+<div class="row">
+    <div class="col-lg-4"></div>
+    <div class="col-lg-4">
+        <form [formGroup]="transactionForm" (ngSubmit)="sendTransaction()">
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                <label for="inputDate">Date of transaction</label>
+                <input type="date" class="form-control" id="inputDate" placeholder="Date" name="date" formControlName="date">
+                </div>
+                <div class="form-group col-md-6">
+                <label for="inputPeriod">Period of transaction</label>
+                <input type="date" class="form-control" id="inputPeriod" placeholder="Period" name="period" formControlName="period">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="inputDescription">Short description</label>
+                <input type="text" class="form-control" id="inputDescription" placeholder="Description" name="description" formControlName="description">
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-3">
+                <label for="inputAmount">Amount</label>
+                <input type="number" min=0 class="form-control" id="inputAmount" name="amount" formControlName="amount">
+                </div>
+                <div class="form-group col-md-4">
+                <label for="inputCredit">Credit</label>
+                <select id="inputCredit" class="form-control" name="credit" formControlName="credit">
+                    <option value="" disabled>Credit</option>
+                    <option *ngFor="let category of categories" [ngValue]="category.name">{{category.value}}</option>
+                </select>
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="inputDebit">Debit</label>
+                    <select id="inputDebit" class="form-control"  name="debit" formControlName="debit">
+                        <option value="" disabled>Credit</option>
+                        <option *ngFor="let category of categories" [ngValue]="category.name">{{category.value}}</option>
+                    </select>
+                </div>      
+            </div>
+            <button type="submit" class="btn btn-primary">Transfer</button>
+        </form>
+    </div>
+    <div class="col-lg-4"></div>
+</div>
