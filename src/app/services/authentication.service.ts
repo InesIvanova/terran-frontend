@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { Token } from '../models/token';
+import { Router } from '@angular/router';
 
 const path = environment.apiUrl;
 const loginUrl = path + 'accounts/rest-auth/login/';
@@ -11,10 +12,11 @@ const loginUrl = path + 'accounts/rest-auth/login/';
   providedIn: 'root'
 })
 export class AuthenticationService {
-
-  constructor(private http: HttpClient) { }
+  isLoggedIn = new Subject<any>();
+  constructor(private http: HttpClient, private router: Router) { }
 
   login(data): Observable<Token> {
+    this.isLoggedIn.next(true)
     return this.http.post<Token>(loginUrl, data);
   }
 
@@ -41,6 +43,12 @@ export class AuthenticationService {
   }
 
   removeToken() {
+    this.isLoggedIn.next(false);
     localStorage.removeItem('token');
+  }
+
+  logout() {
+    this.removeToken();
+    this.router.navigate(['/login'])
   }
 }
