@@ -5,4 +5,6 @@ export interface Transaction {
     amount: number;
     credit: string;
     debit: string;
+    income: boolean;
+    expense: boolean;
 }

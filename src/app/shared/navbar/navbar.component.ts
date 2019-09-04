@@ -8,10 +8,11 @@ import { AuthenticationService } from 'src/app/services/authentication.service';
 })
 export class NavbarComponent implements OnInit {
 
-  token: string;
+  token:string;
 
   constructor(private authService: AuthenticationService) {
     this.authService.isLoggedIn.asObservable().subscribe(v => {
+      console.log(v )
       this.token = v;
     })
   }
@@ -21,6 +22,10 @@ export class NavbarComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.authService.isLoggedIn.asObservable().subscribe(v => {
+      console.log('ok',v )
+      this.token = v;
+    })
   }
 
 }

@@ -13,7 +13,14 @@ const loginUrl = path + 'accounts/rest-auth/login/';
 })
 export class AuthenticationService {
   isLoggedIn = new Subject<any>();
-  constructor(private http: HttpClient, private router: Router) { }
+  constructor(private http: HttpClient, private router: Router) {
+    if (this.isAuthenticated()) {
+      this.isLoggedIn.next(true);
+    }
+    else {
+      this.isLoggedIn.next(false);
+    }
+   }
 
   login(data): Observable<Token> {
     this.isLoggedIn.next(true)

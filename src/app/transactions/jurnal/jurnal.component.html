@@ -1,4 +1,4 @@
-<table class="table table-striped">
+<table class="table">
         <thead>
           <tr>
             <th scope="col">ID</th>
@@ -8,10 +8,13 @@
             <th scope="col">Amount</th>
             <th scope="col">Debit Account</th>
             <th scope="col">Credit Account</th>
+            <th scope="col">Income</th>
+            <th scope="col">Expense</th>
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let transaction of transactions">
+            <ng-container *ngFor="let transaction of transactions">
+          <tr [className]="transaction.income ? 'alert-success' : 'alert-danger'">
             <th scope="row">{{transaction.id}}</th>
             <td>{{transaction.period}}</td>
             <td>{{transaction.date}}</td>
@@ -19,6 +22,9 @@
             <td>{{transaction.amount}}</td>
             <td>{{transaction.debit}}</td>
             <td>{{transaction.credit}}</td>
+            <td><i [className]="transaction.income ? 'fas fa-check' : 'fas fa-times'"></i></td>
+            <td><i [className]="!transaction.income ? 'fas fa-check' : 'fas fa-times'"></i></td>          
           </tr>
+        </ng-container>
         </tbody>
       </table>

@@ -1,22 +1,3 @@
 
 <app-navbar></app-navbar>
-<!-- <div class="row">
-    <div class="col-lg-4"></div>
-    <div class="col-lg-4">
-            <div class="box">
-                    <button *ngIf="token">
-                            <a [routerLink]="['/transactions']">Transactions</a>
-                        </button>
-                        <button *ngIf="!token; else loggedIn">
-                            <a [routerLink]="['/login']">Login</a>
-                        </button>
-                        
-                        <ng-template #loggedIn>
-                            
-                        <button class="btn btn-primary" (click)="logout()">Logout</button>
-                        </ng-template>
-            </div>
-    </div>
-    <div class="col-lg-4"></div>
-</div> -->
 <router-outlet></router-outlet>

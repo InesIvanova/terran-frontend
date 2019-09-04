@@ -5,10 +5,10 @@
             <div>
                 <ul class="nav nav-pills">
                     <li class="nav-item">
-                        <a class="nav-link active" href="#">Income</a>
+                        <a [className]="condition ? 'nav-link active' : 'nav-link'" (click)="changeIncome()">Income</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Expence</a>
+                        <a class="nav-link" [className]="!condition ? 'nav-link active' : 'nav-link'" (click)="changeExpense()">Expence</a>
                     </li>
                 </ul>
             </div>
