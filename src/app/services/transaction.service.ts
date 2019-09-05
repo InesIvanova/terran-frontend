@@ -20,12 +20,16 @@ export class TransactionService {
     return this.http.post<Transaction>(transactionUrl, data);
   }
 
-  getCategories() {
-    return this.http.get(categoriesUrl);
+  getCategories(): Observable<Array<Category>> {
+    return this.http.get<Array<Category>>(categoriesUrl);
   }
 
   getTransactions(): Observable<Array<Transaction>> {
     return this.http.get<Array<Transaction>>(transactionUrl)
+  }
+
+  createCategory(category) {
+    return this.http.post(categoriesUrl, category);
   }
 
 }

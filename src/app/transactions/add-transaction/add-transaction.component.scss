@@ -7,3 +7,24 @@ ul {
 .nav-item {
     cursor: pointer;
 }
+
+select {
+    font-family: 'FontAwesome', 'Second Font name'
+}
+
+.add {
+    background: none;
+    border: none;
+    font-size: 1rem;
+    color: gray;
+    font-style: italic;
+    cursor: pointer;
+    margin-bottom: 5%;
+    &:hover {
+        border-bottom: 1px solid grey;
+    }
+}
+
+.box {
+    display: contents;
+}
