@@ -88,7 +88,7 @@ export class AddTransactionComponent implements OnInit {
     if(this.transactionForm.invalid){
       return;
     }
-    console.log('opa')
+    this.transactionForm.controls['period'].setValue(this.transactionForm.controls['period'].value + '-01')
     this.transactionService.sendTransaction(this.transactionForm.value).subscribe(data => {
       this.transaction = data;
       console.log(this.transaction);

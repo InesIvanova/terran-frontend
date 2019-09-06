@@ -1,36 +1,33 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" [routerLink]="['/transactions']">Dashboard</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-      
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav mr-auto" *ngIf="token">
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Transactions
-              </a>
-              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <a class="dropdown-item" [routerLink]="['transactions/add']">Add transaction</a>
-                <a class="dropdown-item" [routerLink]="['jurnal']">Jurnal</a>
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item" >Something else here</a>
-              </div>
-            </li>
-          </ul>
+  <a class="navbar-brand" [routerLink]="['/transactions']">Dashboard</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
 
-          <ul class="navbar-nav mr-sm-2">
-            <li>
-                <a [routerLink]="['/login']">
-                <button class="btn btn-primary" *ngIf="!token; else loggedIn"> Login</button>
-              </a>
-                
-                <ng-template #loggedIn>
-                    
-                <button class="btn btn-primary" (click)="logout()">Logout</button>
-                </ng-template>
-            </li>
-          </ul>
-    
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto" *ngIf="token">
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Transactions
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" [routerLink]="['transactions/add']">Add transaction</a>
+          <a class="dropdown-item" [routerLink]="['transactions/jurnal']">Jurnal</a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" >Something else here</a>
         </div>
-      </nav>
+      </li>
+    </ul>
+    <ul class="navbar-nav mr-sm-2">
+      <li>
+          <a [routerLink]="['/login']">
+          <button class="btn btn-primary" *ngIf="!token; else loggedIn"> Login</button>
+        </a>         
+          <ng-template #loggedIn>
+              
+          <button class="btn btn-primary" (click)="logout()">Logout</button>
+          </ng-template>
+      </li>
+    </ul>
+  </div>
+</nav>

@@ -8,8 +8,8 @@
             <th scope="col">Amount</th>
             <th scope="col">Debit Account</th>
             <th scope="col">Credit Account</th>
-            <th scope="col">Income</th>
-            <th scope="col">Expense</th>
+            <!-- <th scope="col">Income</th>
+            <th scope="col">Expense</th> -->
           </tr>
         </thead>
         <tbody>
@@ -22,8 +22,8 @@
             <td> <span *ngIf="!transaction.income">-</span>{{transaction.amount}}</td>
             <td>{{transaction.debit}}</td>
             <td>{{transaction.credit}}</td>
-            <td><i [className]="transaction.income ? 'fas fa-check' : 'fas fa-times'"></i></td>
-            <td><i [className]="!transaction.income ? 'fas fa-check' : 'fas fa-times'"></i></td>          
+            <!-- <td><i [className]="transaction.income ? 'fas fa-check' : 'fas fa-times'"></i></td>
+            <td><i [className]="!transaction.income ? 'fas fa-check' : 'fas fa-times'"></i></td>           -->
           </tr>
         </ng-container>
         </tbody>
