@@ -1,4 +1,9 @@
+import { SubCategory } from './subCategory';
+
 export interface Category {
-    name: string;
     id: number;
+    group: string;
+    type: string;
+    name: string;
+    sub_categoories: Array<SubCategory>
 }

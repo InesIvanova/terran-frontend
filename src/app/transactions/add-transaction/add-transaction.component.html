@@ -1,14 +1,17 @@
 <div class="row">
-    <div class="col-lg-4"></div>
-    <div class="col-lg-4">
+    <div class="col-lg-3"></div>
+    <div class="col-lg-6">
         <form [formGroup]="transactionForm" (ngSubmit)="sendTransaction()">
             <div>
                 <ul class="nav nav-pills">
                     <li class="nav-item">
-                        <a [className]="condition ? 'nav-link active' : 'nav-link'" (click)="changeIncome()">Income</a>
+                        <a [className]="isIncome ? 'nav-link active' : 'nav-link'" (click)="changeIncome()">Income</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" [className]="!condition ? 'nav-link active' : 'nav-link'" (click)="changeExpense()">Expence</a>
+                        <a class="nav-link" [className]="!isIncome  && !transfer ? 'nav-link active' : 'nav-link'" (click)="changeExpense()">Expence</a>
+                    </li>
+                    <li class="nav-item">
+                            <a [className]="transfer ? 'nav-link active' : 'nav-link'" (click)="changeTranser()">Transfer</a>
                     </li>
                 </ul>
             </div>
@@ -34,7 +37,7 @@
                 <label for="inputAmount">Amount</label>
                 <input type="number" class="form-control" id="inputAmount" name="amount" formControlName="amount">
                 </div>
-                <div class="form-group col-md-4">
+                <!-- <div class="form-group col-md-4">
                     <label for="inputDebit">Debit</label>
                     <select id="inputDebit" class="form-control"  name="debit" formControlName="debit">
                         <option value="" disabled>Debit</option>
@@ -48,7 +51,29 @@
                         <option value="" disabled>Credit</option>
                         <option *ngFor="let category of categories" [ngValue]="category.name">{{category.name}}</option>
                     </select>
-                </div>               
+                </div>                -->
+                 <div class="form-group col-md-4">
+                    <label for="inputAccount">From account</label>
+                    <select id="inputAccount" class="form-control"  name="account" formControlName="account">
+                        <option value="" disabled>Choose account</option>
+                        <option *ngFor="let account of accounts" [ngValue]="account.id">{{account.name}}</option>
+                    </select>
+                </div>  
+                <div class="form-group col-md-4" *ngIf="!transfer">
+                    <label for="inputCategory">Category</label>
+                    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css" rel="stylesheet"/>
+                    <select id="inputCategory" class="form-control" name="category" formControlName="category">
+                        <option value="" disabled>Select catryegy</option>
+                        <option *ngFor="let category of categoriesFiltered" [ngValue]="category.name">{{category.name}}</option>
+                    </select>
+                </div>    
+                <div class="form-group col-md-4" *ngIf="transfer">
+                    <label for="inputAccount">To account</label>
+                    <select id="inputAccount" class="form-control"  name="account" formControlName="account">
+                        <option value="" disabled>Choose account</option>
+                        <option *ngFor="let account of accounts" [ngValue]="account.id">{{account.name}}</option>
+                    </select>
+                </div>             
                 <button class="add" [disabled]="popUpOpen" (click)="openPopUp()"><span ><i class="fas fa-plus"></i> Add new category</span> </button>
                 <app-pop-up class="my-prompt" [isOpen]="popUpOpen">
                     <div class="row">
@@ -70,5 +95,5 @@
             <button type="submit" class="btn btn-primary">Transfer</button>
         </form>
     </div>
-    <div class="col-lg-4"></div>
+    <div class="col-lg-3"></div>
 </div>

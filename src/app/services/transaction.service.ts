@@ -3,11 +3,13 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { Observable } from 'rxjs';
 import { Transaction } from '../models/transaction';
+import { Account } from '../models/account';
 import { Category } from '../models/category';
 
 const path = environment.apiUrl;
 const transactionUrl = path + 'transactions/';
-const categoriesUrl = path + 'transactions/categories/';
+const accouuntsUrl = path + 'accounts/accounts/';
+const categoriesUrl = path + 'accounts/categories/';
 
 @Injectable({
   providedIn: 'root'
@@ -20,16 +22,24 @@ export class TransactionService {
     return this.http.post<Transaction>(transactionUrl, data);
   }
 
-  getCategories(): Observable<Array<Category>> {
-    return this.http.get<Array<Category>>(categoriesUrl);
+  getAccounts(): Observable<Array<Account>> {
+    return this.http.get<Array<Account>>(accouuntsUrl);
   }
 
   getTransactions(): Observable<Array<Transaction>> {
     return this.http.get<Array<Transaction>>(transactionUrl)
   }
 
-  createCategory(category) {
-    return this.http.post(categoriesUrl, category);
+  getCategories(): Observable<Array<Category>> {
+    return this.http.get<Array<Category>>(categoriesUrl);
+  }
+
+  createAccount(account) {
+    return this.http.post(accouuntsUrl, account);
+  }
+
+  createCategory(categoory) {
+    return this.http.post(categoriesUrl, categoory)
   }
 
 }

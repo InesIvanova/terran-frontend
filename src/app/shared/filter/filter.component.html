@@ -1,0 +1,21 @@
+<form class="form-inline" method="POST" [formGroup]="filterForm" (ngSubmit)="filter()">
+    <label class="sr-only" for="from">From</label>
+    <input type="date" class="form-control mb-2 mr-sm-2" id="from" formControlName="from">
+  
+    <label class="sr-only" for="to">To</label>
+    <input type="date" class="form-control mb-2 mr-sm-2" id="to" placeholder="Username" formControlName="to">
+
+    <div class="custom-control custom-radio custom-control-inline">
+        <input type="radio" id="income" name="income" value="income" class="custom-control-input" formControlName="income">
+        <label class="custom-control-label" for="income">Income</label>
+    </div>
+    <div class="custom-control custom-radio custom-control-inline">
+        <input type="radio" id="expense" name="expense" value="expense" class="custom-control-input" formControlName="expense">
+        <label class="custom-control-label" for="expense">Expences</label>
+    </div>
+    <div class="custom-control custom-radio custom-control-inline">
+        <input type="radio" id="all" name="all" class="custom-control-input" formControlName="all">
+        <label class="custom-control-label" for="all">All</label>
+    </div>
+    <button type="submit" class="btn btn-primary mb-2">Submit</button>
+</form>

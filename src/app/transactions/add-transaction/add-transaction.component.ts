@@ -14,10 +14,13 @@ export class AddTransactionComponent implements OnInit {
   
   transactionForm: FormGroup;
   transaction: Transaction;
+  accounts;
+  isIncome: boolean = true;
+  isSubmited: boolean = false;
+  popUpOpen: boolean = false;
   categories: Array<Category>;
-  condition = true;
-  isSubmited = false;
-  popUpOpen = false;
+  categoriesFiltered: Array<Category>;
+  transfer: boolean = false;
 
   constructor(private formBuilder: FormBuilder, 
     private transactionService: TransactionService,
@@ -27,32 +30,49 @@ export class AddTransactionComponent implements OnInit {
       'period': ['', [Validators.required]],
       'amount': ['', [Validators.required, Validators.pattern("[0-9]+")]],
       'description': [''],
-      'credit': [''],
-      'debit': [''],
-      'income': [true, [Validators.required]],
-      'expense': [false, [Validators.required]]
+      'account': [''],  
+      'category': ['']
     })
   }
 
   get formControls() { return this.transactionForm.controls; }
 
   ngOnInit() {
-    this.loadCategories()
+    this.loadAccounts()
   }
 
   loadCategories() {
     this.transactionService.getCategories().subscribe(categories => {
-      this.categories = categories;
-      console.log(this.categories);
+      this.categories = categories
+      console.log('cates', this.categories)
+      console.log('prop',this.categories[0].group)
+      this.categoriesFiltered = this.categories.filter(c => c.group == "income" );
+      
+    })
+  }
+
+  filterCategories() {
+    if (this.isIncome) {
+      this.categoriesFiltered = this.categories.filter(c => c.group == "income");
+    }
+    else {
+    this.categoriesFiltered = this.categories.filter(c => c.group == "expense");
+    }
+  }
+
+  loadAccounts() {
+    this.transactionService.getAccounts().subscribe(accounts => {
+      this.accounts = accounts;
+      this.loadCategories();
+      console.log(this.accounts);
     })
   }
 
   changeIncome() {
-    this.transactionForm.controls['income'].setValue(true);
-    this.transactionForm.controls['expense'].setValue(true);
-    this.condition = true;
+    this.isIncome = true;
+    this.transfer = false;
+    this.filterCategories();
   }
-
  
   openPopUp() {
     this.popUpOpen = true;
@@ -67,9 +87,15 @@ export class AddTransactionComponent implements OnInit {
   }
 
   changeExpense() {
-    this.transactionForm.controls['income'].setValue(false);
-    this.transactionForm.controls['expense'].setValue(true);
-    this.condition = false;
+    this.isIncome = false;
+    this.transfer = false;
+    this.filterCategories()
+  }
+
+  changeTranser() {
+    this.isIncome = false;
+    this.transfer = true;
+    this.filterCategories()
   }
 
   createCategiry() {
@@ -78,7 +104,7 @@ export class AddTransactionComponent implements OnInit {
     console.log(categoryName)
     this.transactionService.createCategory({'name': categoryName}).subscribe(() => {
       this.popUpOpen = false;
-      this.loadCategories();
+      this.loadAccounts();
     });
     
   }
@@ -89,11 +115,12 @@ export class AddTransactionComponent implements OnInit {
       return;
     }
     this.transactionForm.controls['period'].setValue(this.transactionForm.controls['period'].value + '-01')
-    this.transactionService.sendTransaction(this.transactionForm.value).subscribe(data => {
-      this.transaction = data;
-      console.log(this.transaction);
-      this.router.navigate(['/transactions'])
-    })
+    console.log(this.transactionForm.value)
+    // this.transactionService.sendTransaction(this.transactionForm.value).subscribe(data => {
+    //   this.transaction = data;
+    //   console.log(this.transaction);
+    //   this.router.navigate(['/transactions'])
+    // })
   }
 
 }
