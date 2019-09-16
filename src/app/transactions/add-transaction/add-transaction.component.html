@@ -5,13 +5,13 @@
             <div>
                 <ul class="nav nav-pills">
                     <li class="nav-item">
-                        <a [className]="isIncome ? 'nav-link active' : 'nav-link'" (click)="changeIncome()">Income</a>
+                        <a [className]="isIncome == 'income' ? 'nav-link active' : 'nav-link'" (click)="changeIncomeExpense('income')">Income</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" [className]="!isIncome  && !transfer ? 'nav-link active' : 'nav-link'" (click)="changeExpense()">Expence</a>
+                        <a class="nav-link" [className]="isIncome == 'expense'  && !transfer ? 'nav-link active' : 'nav-link'" (click)="changeIncomeExpense('expense')">Expence</a>
                     </li>
                     <li class="nav-item">
-                            <a [className]="transfer ? 'nav-link active' : 'nav-link'" (click)="changeTranser()">Transfer</a>
+                            <a [className]="isIncome == 'transfer' ? 'nav-link active' : 'nav-link'" (click)="changeIncomeExpense('transfer')">Transfer</a>
                     </li>
                 </ul>
             </div>
@@ -37,21 +37,6 @@
                 <label for="inputAmount">Amount</label>
                 <input type="number" class="form-control" id="inputAmount" name="amount" formControlName="amount">
                 </div>
-                <!-- <div class="form-group col-md-4">
-                    <label for="inputDebit">Debit</label>
-                    <select id="inputDebit" class="form-control"  name="debit" formControlName="debit">
-                        <option value="" disabled>Debit</option>
-                        <option *ngFor="let category of categories" [ngValue]="category.name">{{category.name}}</option>
-                    </select>
-                </div>  
-                <div class="form-group col-md-4">
-                    <label for="inputCredit">Credit</label>
-                    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css" rel="stylesheet"/>
-                    <select id="inputCredit" class="form-control" name="credit" formControlName="credit">
-                        <option value="" disabled>Credit</option>
-                        <option *ngFor="let category of categories" [ngValue]="category.name">{{category.name}}</option>
-                    </select>
-                </div>                -->
                  <div class="form-group col-md-4">
                     <label for="inputAccount">From account</label>
                     <select id="inputAccount" class="form-control"  name="account" formControlName="account">
@@ -59,31 +44,46 @@
                         <option *ngFor="let account of accounts" [ngValue]="account.id">{{account.name}}</option>
                     </select>
                 </div>  
-                <div class="form-group col-md-4" *ngIf="!transfer">
+                <div class="form-group col-md-4" *ngIf="isIncome != 'transfer'">
                     <label for="inputCategory">Category</label>
                     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css" rel="stylesheet"/>
                     <select id="inputCategory" class="form-control" name="category" formControlName="category">
                         <option value="" disabled>Select catryegy</option>
-                        <option *ngFor="let category of categoriesFiltered" [ngValue]="category.name">{{category.name}}</option>
+                        <option *ngFor="let category of categoriesFiltered" [ngValue]="category.id">{{category.name}}</option>
                     </select>
                 </div>    
-                <div class="form-group col-md-4" *ngIf="transfer">
+                <div class="form-group col-md-4" *ngIf="isIncome == 'transfer'">
                     <label for="inputAccount">To account</label>
-                    <select id="inputAccount" class="form-control"  name="account" formControlName="account">
+                    <select id="inputAccount" class="form-control" name="account" (change)="bindToAccountId($event.target.value)">
                         <option value="" disabled>Choose account</option>
-                        <option *ngFor="let account of accounts" [ngValue]="account.id">{{account.name}}</option>
+                        <option *ngFor="let account of accounts" [ngValue]="account.id" [value]="account.id">{{account.name}}</option>
                     </select>
                 </div>             
                 <button class="add" [disabled]="popUpOpen" (click)="openPopUp()"><span ><i class="fas fa-plus"></i> Add new category</span> </button>
+                <button class="add" ><span ><i class="fas fa-plus"></i> Add new subcategory</span> </button>
                 <app-pop-up class="my-prompt" [isOpen]="popUpOpen">
                     <div class="row">
-                        <div class="box">
-                            <div class="col-lg-6">
-                                <input type="text" id="userInput"  class="form-control">
+                        <div class="box" formGroupName="new_category">
+                            <select id="inputCategory" class="form-control" name="category" formControlName="group">
+                                <option value="" disabled>Select income/expense</option>
+                                    <option value="expense">Expense</option>
+                                    <option value="income">Income</option>
+                            </select>
+                            <div class="form-group">
+                                <label for="inputDescription">Type category</label>
+                                <input type="text" class="form-control" id="inputDescription" placeholder="Fixed/non-fixed ect.." formControlName="type">
                             </div>
-                            <div class="col-lg-2"></div>
-                            <div class="col-lg-2"><button class="btn btn-primary" type="button" (click)="createCategiry()">&lt;&nbsp;Add&nbsp;&gt;</button></div>
-                            <div class="col-lg-2"> <button class="btn btn-dark" type="button"  (click)="cancelOption()">&lt;&nbsp;Cancel&nbsp;&gt;</button></div>
+                            <div class="form-group">
+                                <label for="inputDescription">Name of the category</label>
+                                <input type="text" class="form-control" id="inputDescription" placeholder="Food/Bills..." formControlName="name">
+                            </div>
+                            <div class="form-group">
+                                <label for="">Please write yoour subcategories separeted by ", "</label>
+                                <input type="text" class="form-control" placeholder="meet, fruits..." formControlName="sub_categories">
+                            </div>
+                            <div class="form-group">                                <label for=""></label>
+                                <button class="btn btn-primary" style="margin: 5% 2% 0% 15%;" type="button" (click)="createCategiry()">&lt;&nbsp;Add&nbsp;&gt;</button></div>
+                            <div class="form-group" >  <label for=""></label><button class="btn btn-dark" style="margin: 5% 2% 0% 15%;" type="button"  (click)="cancelOption()">&lt;&nbsp;Cancel&nbsp;&gt;</button></div>
 
                         </div>                       
                     </div>

@@ -15,12 +15,13 @@ export class AddTransactionComponent implements OnInit {
   transactionForm: FormGroup;
   transaction: Transaction;
   accounts;
-  isIncome: boolean = true;
+  isIncome: string = 'income';
   isSubmited: boolean = false;
   popUpOpen: boolean = false;
+  addSubCategory: boolean = false;
   categories: Array<Category>;
   categoriesFiltered: Array<Category>;
-  transfer: boolean = false;
+  toAccount: number;
 
   constructor(private formBuilder: FormBuilder, 
     private transactionService: TransactionService,
@@ -31,7 +32,13 @@ export class AddTransactionComponent implements OnInit {
       'amount': ['', [Validators.required, Validators.pattern("[0-9]+")]],
       'description': [''],
       'account': [''],  
-      'category': ['']
+      'category': [''],
+      'new_category': this.formBuilder.group({
+        'group': [''],
+        'type': [''],
+        'name': [''],
+        'sub_categories': ['']
+      })
     })
   }
 
@@ -41,23 +48,23 @@ export class AddTransactionComponent implements OnInit {
     this.loadAccounts()
   }
 
+  changeIncomeExpense(data) {
+    this.isIncome = data;
+    this.filterCategories()
+  }
+
   loadCategories() {
     this.transactionService.getCategories().subscribe(categories => {
       this.categories = categories
       console.log('cates', this.categories)
       console.log('prop',this.categories[0].group)
-      this.categoriesFiltered = this.categories.filter(c => c.group == "income" );
+      this.categoriesFiltered = this.categories.filter(c => c.group == this.isIncome );
       
     })
   }
 
   filterCategories() {
-    if (this.isIncome) {
-      this.categoriesFiltered = this.categories.filter(c => c.group == "income");
-    }
-    else {
-    this.categoriesFiltered = this.categories.filter(c => c.group == "expense");
-    }
+      this.categoriesFiltered = this.categories.filter(c => c.group == this.isIncome);
   }
 
   loadAccounts() {
@@ -68,14 +75,16 @@ export class AddTransactionComponent implements OnInit {
     })
   }
 
-  changeIncome() {
-    this.isIncome = true;
-    this.transfer = false;
-    this.filterCategories();
+  bindToAccountId(event) {
+    this.toAccount = parseInt(event);
   }
- 
+
   openPopUp() {
     this.popUpOpen = true;
+  }
+
+  openAddSubCategory() {
+    this.addSubCategory = true;
   }
 
   deleteOption() {
@@ -86,27 +95,11 @@ export class AddTransactionComponent implements OnInit {
     this.popUpOpen = false;
   }
 
-  changeExpense() {
-    this.isIncome = false;
-    this.transfer = false;
-    this.filterCategories()
-  }
-
-  changeTranser() {
-    this.isIncome = false;
-    this.transfer = true;
-    this.filterCategories()
-  }
-
   createCategiry() {
-    var categoryName = String((<HTMLInputElement>document.getElementById('userInput')).value);
-    categoryName = categoryName.replace(/^\w/, c => c.toUpperCase())
-    console.log(categoryName)
-    this.transactionService.createCategory({'name': categoryName}).subscribe(() => {
-      this.popUpOpen = false;
-      this.loadAccounts();
-    });
-    
+    this.transactionService.createCategory(this.transactionForm.value['new_category']).subscribe(data  => {
+      this.loadCategories();
+      this.cancelOption();
+    }) 
   }
 
   sendTransaction() {
@@ -115,12 +108,19 @@ export class AddTransactionComponent implements OnInit {
       return;
     }
     this.transactionForm.controls['period'].setValue(this.transactionForm.controls['period'].value + '-01')
-    console.log(this.transactionForm.value)
-    // this.transactionService.sendTransaction(this.transactionForm.value).subscribe(data => {
-    //   this.transaction = data;
-    //   console.log(this.transaction);
-    //   this.router.navigate(['/transactions'])
-    // })
+    console.log(this.toAccount)
+    if (this.toAccount != 0) {
+      this.transactionService.sendTransaction(this.transactionForm.value, this.isIncome, this.toAccount).subscribe(data => {
+        this.transaction = data;
+        // this.router.navigate(['/transactions'])
+      })
+    }
+    else {
+      this.transactionService.sendTransaction(this.transactionForm.value, this.isIncome).subscribe(data => {
+        this.transaction = data;
+        this.router.navigate(['/transactions'])
+      })
+    }
   }
 
 }

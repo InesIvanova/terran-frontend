@@ -18,7 +18,12 @@ export class TransactionService {
 
   constructor(private http: HttpClient) { }
 
-  sendTransaction(data): Observable<Transaction> {
+  sendTransaction(data, type, toAccount=null): Observable<Transaction> {
+    data['type'] = type;
+    console.log(data)
+    if (toAccount) {
+      data['to_account'] = toAccount;
+    }
     return this.http.post<Transaction>(transactionUrl, data);
   }
 
@@ -38,8 +43,12 @@ export class TransactionService {
     return this.http.post(accouuntsUrl, account);
   }
 
-  createCategory(categoory) {
-    return this.http.post(categoriesUrl, categoory)
+  createCategory(categooryData) {
+    return this.http.post(categoriesUrl, categooryData)
+  }
+
+  createSubCategories(categories) {
+    return this.http.post(categoriesUrl, categoriesUrl)
   }
 
 }

@@ -10,22 +10,21 @@
             <th scope="col">Amount</th>
             <th scope="col">Debit Account</th>
             <th scope="col">Credit Account</th>
-            <!-- <th scope="col">Income</th>
-            <th scope="col">Expense</th> -->
           </tr>
         </thead>
         <tbody>
             <ng-container *ngFor="let transaction of transactions">
-          <tr [className]="transaction.income ? 'alert-success' : 'alert-danger'">
+          <tr [className]="transaction.type == 'income' ? 'alert-success' : 'alert-danger'">
             <th scope="row">{{transaction.id}}</th>
             <td>{{transaction.period}}</td>
             <td>{{transaction.date}}</td>
             <td>{{transaction.description}}</td>
-            <td> <span *ngIf="!transaction.income">-</span>{{transaction.amount}}</td>
-            <td>{{transaction.debit}}</td>
-            <td>{{transaction.credit}}</td>
-            <!-- <td><i [className]="transaction.income ? 'fas fa-check' : 'fas fa-times'"></i></td>
-            <td><i [className]="!transaction.income ? 'fas fa-check' : 'fas fa-times'"></i></td>           -->
+            <td> <span *ngIf="transaction.category.group != 'income'">-</span>{{transaction.amount}}</td>
+            <td *ngIf="transaction.category.group == 'income'">{{transaction.account.name}}</td>
+            <td *ngIf="transaction.category.group == 'income'">{{transaction.category.name}}</td>
+            <td *ngIf="transaction.category.group == 'expense'">{{transaction.category.name}}</td>
+            <td *ngIf="transaction.category.group == 'expense'">{{transaction.account.name}}</td>
+
           </tr>
         </ng-container>
         </tbody>

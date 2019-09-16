@@ -1,10 +1,15 @@
+import { Category } from './category';
+import { Account } from './account';
+
 export interface Transaction {
+    id: number;
+    user?: number;
     date: Date;
     period: Date;
     description: string;
     amount: number;
-    credit: string;
-    debit: string;
-    income: boolean;
-    expense: boolean;
+    category: Category;
+    account: Account;
+    type: string;
+    to_account?: number;
 }
