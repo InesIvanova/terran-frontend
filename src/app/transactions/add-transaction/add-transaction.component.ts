@@ -33,6 +33,7 @@ export class AddTransactionComponent implements OnInit {
       'description': [''],
       'account': [''],  
       'category': [''],
+      'sub_category': [''],
       'new_category': this.formBuilder.group({
         'group': [''],
         'type': [''],
@@ -61,6 +62,17 @@ export class AddTransactionComponent implements OnInit {
       this.categoriesFiltered = this.categories.filter(c => c.group == this.isIncome );
       
     })
+  }
+
+  selectCategory(category) {
+    this.transactionForm.controls['category'].setValue(category);
+    this.transactionForm.controls['sub_category'].setValue('');
+  }
+
+  selectSubCategory(category_id, sub_category) {
+    this.transactionForm.controls['category'].setValue(category_id);
+    this.transactionForm.controls['sub_category'].setValue(sub_category);
+    console.log(this.transactionForm.value)
   }
 
   filterCategories() {
@@ -108,14 +120,12 @@ export class AddTransactionComponent implements OnInit {
       return;
     }
     this.transactionForm.controls['period'].setValue(this.transactionForm.controls['period'].value + '-01')
-    console.log(this.toAccount)
-    if (this.toAccount != 0) {
-      this.transactionService.sendTransaction(this.transactionForm.value, this.isIncome, this.toAccount).subscribe(data => {
-        this.transaction = data;
-        // this.router.navigate(['/transactions'])
+    if (this.isIncome == 'transfer') {
+      this.transactionService.sendTransfer(this.transactionForm.value, this.toAccount, this.isIncome).subscribe(data => {
+        console.log('data', data)
+        this.router.navigate(['/transactions']);
       })
-    }
-    else {
+    } else {
       this.transactionService.sendTransaction(this.transactionForm.value, this.isIncome).subscribe(data => {
         this.transaction = data;
         this.router.navigate(['/transactions'])

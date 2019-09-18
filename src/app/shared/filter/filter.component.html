@@ -5,17 +5,18 @@
     <label class="sr-only" for="to">To</label>
     <input type="date" class="form-control mb-2 mr-sm-2" id="to" placeholder="Username" formControlName="to">
 
-    <div class="custom-control custom-radio custom-control-inline">
-        <input type="radio" id="income" name="income" value="income" class="custom-control-input" formControlName="income">
-        <label class="custom-control-label" for="income">Income</label>
-    </div>
-    <div class="custom-control custom-radio custom-control-inline">
-        <input type="radio" id="expense" name="expense" value="expense" class="custom-control-input" formControlName="expense">
-        <label class="custom-control-label" for="expense">Expences</label>
-    </div>
-    <div class="custom-control custom-radio custom-control-inline">
-        <input type="radio" id="all" name="all" class="custom-control-input" formControlName="all">
-        <label class="custom-control-label" for="all">All</label>
-    </div>
-    <button type="submit" class="btn btn-primary mb-2">Submit</button>
+    <div>
+            <ul class="nav nav-pills">
+                <li class="nav-item">
+                    <a [className]="isIncome == 'income' ? 'nav-link active' : 'nav-link'" (click)="changeIncomeExpense('income')">Income</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" [className]="isIncome == 'expense'  && !transfer ? 'nav-link active' : 'nav-link'" (click)="changeIncomeExpense('expense')">Expence</a>
+                </li>
+                <li class="nav-item">
+                        <a [className]="isIncome == 'transfer' ? 'nav-link active' : 'nav-link'" (click)="changeIncomeExpense('transfer')">Transfer</a>
+                </li>
+            </ul>
+        </div>
+    <button type="submit" class="btn btn-dark">Submit</button>
 </form>

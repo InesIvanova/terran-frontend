@@ -1,6 +1,7 @@
 <div class="row">
     <div class="col-lg-3"></div>
     <div class="col-lg-6">
+        
         <form [formGroup]="transactionForm" (ngSubmit)="sendTransaction()">
             <div>
                 <ul class="nav nav-pills">
@@ -44,23 +45,45 @@
                         <option *ngFor="let account of accounts" [ngValue]="account.id">{{account.name}}</option>
                     </select>
                 </div>  
-                <div class="form-group col-md-4" *ngIf="isIncome != 'transfer'">
+                <!-- <div class="form-group col-md-4" *ngIf="isIncome != 'transfer'">
                     <label for="inputCategory">Category</label>
                     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css" rel="stylesheet"/>
-                    <select id="inputCategory" class="form-control" name="category" formControlName="category">
+                    <select id="inputCategory" class="form-control" name="category">
                         <option value="" disabled>Select catryegy</option>
                         <option *ngFor="let category of categoriesFiltered" [ngValue]="category.id">{{category.name}}</option>
                     </select>
-                </div>    
+                </div>     -->
+                <div class="form-group col-md-4" *ngIf="isIncome != 'transfer'">
+                    <label for="inputCategory">Category</label>
+                    <div class="dropdown">
+                        <button class="btn btn-secondary dropdown-toggle" style="width: 100%" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          Category
+                        </button>
+                        <ul class="dropdown-menu multi-level" role="menu" aria-labelledby="dropdownMenu">
+                            <div *ngFor="let category of categoriesFiltered">
+                                <li  class="dropdown-item" *ngIf="category.sub_categories.length == 0" ><a [id]="category.id" style="cursor: pointer" (click)=selectCategory($event.target.id)>{{category.name}}</a></li>
+                            
+                            <li *ngIf="category.sub_categories.length != 0" class="dropdown-submenu">
+                              <a  class="dropdown-item" tabindex="-1">{{category.name}}</a>
+                              <ul class="dropdown-menu">
+                                <li *ngFor="let sub_category of category.sub_categories" class="dropdown-item"><a tabindex="-1" [id]="sub_category" style="cursor: pointer" (click)=selectSubCategory(category.id,$event.target.id)>{{sub_category}}</a></li>
+                              </ul>
+                            </li>
+                        </div>
+                        </ul>
+                    </div>
+                </div>
                 <div class="form-group col-md-4" *ngIf="isIncome == 'transfer'">
                     <label for="inputAccount">To account</label>
                     <select id="inputAccount" class="form-control" name="account" (change)="bindToAccountId($event.target.value)">
                         <option value="" disabled>Choose account</option>
                         <option *ngFor="let account of accounts" [ngValue]="account.id" [value]="account.id">{{account.name}}</option>
                     </select>
-                </div>             
+                </div>   
+
+                
+                
                 <button class="add" [disabled]="popUpOpen" (click)="openPopUp()"><span ><i class="fas fa-plus"></i> Add new category</span> </button>
-                <button class="add" ><span ><i class="fas fa-plus"></i> Add new subcategory</span> </button>
                 <app-pop-up class="my-prompt" [isOpen]="popUpOpen">
                     <div class="row">
                         <div class="box" formGroupName="new_category">
