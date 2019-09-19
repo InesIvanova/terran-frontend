@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { TransactionService } from '../../services/transaction.service';
 import { Transaction } from '../../models/transaction';
+import { Transfer } from 'src/app/models/transfer';
 
 @Component({
   selector: 'app-jurnal',
@@ -8,7 +9,8 @@ import { Transaction } from '../../models/transaction';
   styleUrls: ['./jurnal.component.scss']
 })
 export class JurnalComponent implements OnInit {
-  transactions: Array<Transaction>
+  @Input()
+  transactions: Array<Transaction | Transfer>
   constructor(private transactionService: TransactionService) { }
 
   ngOnInit() {
@@ -18,8 +20,10 @@ export class JurnalComponent implements OnInit {
     });
   }
 
-  getTransactions() {
-    
+  getTransactions(filteredTransactions) {
+    console.log('recieved emitted message', filteredTransactions)
+    this.transactions = filteredTransactions
   }
+
 
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { TransactionService } from 'src/app/services/transaction.service';
 
@@ -10,6 +10,8 @@ import { TransactionService } from 'src/app/services/transaction.service';
 export class FilterComponent implements OnInit {
   filterForm;
   isIncome: string;
+  
+  @Output() filterChange = new EventEmitter();
 
   constructor(private formBuilder: FormBuilder, private transactioService: TransactionService) { }
 
@@ -22,9 +24,16 @@ export class FilterComponent implements OnInit {
   }
 
   filter() {
+    if (this.isIncome == 'transfer') {
+      this.transactioService.searchTransfers().subscribe(data => {
+        this.filterChange.emit(data);
+        return;
+      });
+
+    }
     console.log(this.filterForm.value)
     this.transactioService.searchTransactions(this.filterForm.value).subscribe(data => {
-      console.log(data)
+      this.filterChange.emit(data);
     });
   }
 

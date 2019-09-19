@@ -66,4 +66,8 @@ export class TransactionService {
     return this.http.post<Transfer>(transferUrl, transferData);
   }
 
+  searchTransfers(): Observable<Array<Transfer>> {
+    return this.http.get<Array<Transfer>>(transferUrl);
+  }
+
 }

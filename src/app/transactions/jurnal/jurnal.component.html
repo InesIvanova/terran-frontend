@@ -1,4 +1,6 @@
-<app-filter></app-filter>
+<div class="container-fluid">
+    <app-filter (filterChange)="getTransactions($event)"></app-filter>
+</div>
 
 <table class="table">
         <thead>
@@ -19,11 +21,13 @@
             <td>{{transaction.period}}</td>
             <td>{{transaction.date}}</td>
             <td>{{transaction.description}}</td>
-            <td> <span *ngIf="transaction.category.group != 'income'">-</span>{{transaction.amount}}</td>
-            <td *ngIf="transaction.category.group == 'income'">{{transaction.account.name}} <span *ngIf="transaction.sub_category">: {{transaction.sub_category}}</span> </td>
-            <td *ngIf="transaction.category.group == 'income'">{{transaction.category.name}} <span *ngIf="transaction.sub_category">: {{transaction.sub_category}}</span> </td>
-            <td *ngIf="transaction.category.group == 'expense'">{{transaction.category.name}} <span *ngIf="transaction.sub_category">: {{transaction.sub_category}}</span> </td>
-            <td *ngIf="transaction.category.group == 'expense'">{{transaction.account.name}} <span *ngIf="transaction.sub_category">: {{transaction.sub_category}}</span> </td>
+            <td> <span *ngIf="transaction.category?.group != 'income'">-</span>{{transaction.amount}}</td>
+            <td *ngIf="transaction.category?.group == 'income'">{{transaction.account.name}} <span *ngIf="transaction.sub_category">: {{transaction.sub_category}}</span> </td>
+            <td *ngIf="transaction.category?.group == 'income'">{{transaction.category.name}} <span *ngIf="transaction.sub_category">: {{transaction.sub_category}}</span> </td>
+            <td *ngIf="transaction.category?.group == 'expense'">{{transaction.category.name}} <span *ngIf="transaction.sub_category">: {{transaction.sub_category}}</span> </td>
+            <td *ngIf="transaction.category?.group == 'expense'">{{transaction.account.name}} <span *ngIf="transaction.sub_category">: {{transaction.sub_category}}</span> </td>
+            <td *ngIf="transaction.to_account">{{transaction.account.name}} <span *ngIf="transaction.sub_category">: {{transaction.sub_category}}</span> </td>
+            <td *ngIf="transaction.to_account">{{transaction.to_account.name}} <span *ngIf="transaction.sub_category">: {{transaction.sub_category}}</span> </td>
 
           </tr>
         </ng-container>
