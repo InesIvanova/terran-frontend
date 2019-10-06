@@ -6,6 +6,7 @@ import { SharedModule } from '../shared/shared.module';
 import { AuthGuardService } from '../services/auth-guard.service';
 import { JurnalComponent } from './jurnal/jurnal.component';
 import { TransactionsComponent } from './transactions/transactions.component';
+import { EndDayComponent } from './end-day/end-day.component';
 
 const routes: Routes = [
   {
@@ -22,6 +23,11 @@ const routes: Routes = [
     path: 'jurnal',
     component: JurnalComponent,
     canActivate: [AuthGuardService]
+  },
+  {
+    path: 'end',
+    component: EndDayComponent,
+    canActivate: [AuthGuardService]
   }
 ]
 
@@ -29,12 +35,13 @@ const routes: Routes = [
   declarations: [
     AddTransactionComponent,
     JurnalComponent,
-    TransactionsComponent
+    TransactionsComponent,
+    EndDayComponent
   ],
   imports: [
     CommonModule,
     SharedModule,
-    RouterModule.forChild(routes)
+    RouterModule.forChild(routes),
   ],
   exports: [RouterModule]
 })

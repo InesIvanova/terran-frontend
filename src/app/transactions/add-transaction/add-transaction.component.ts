@@ -65,6 +65,7 @@ export class AddTransactionComponent implements OnInit {
   }
 
   selectCategory(category) {
+    console.log(category)
     this.transactionForm.controls['category'].setValue(category);
     this.transactionForm.controls['sub_category'].setValue('');
   }

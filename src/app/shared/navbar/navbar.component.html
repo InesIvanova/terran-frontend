@@ -5,17 +5,21 @@
   </button>
 
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav mr-auto" *ngIf="token">
+    <ul class="navbar-nav mr-auto" >
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           Transactions
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" [routerLink]="['/p-and-l/']">Profit and loss</a>
           <a class="dropdown-item" [routerLink]="['transactions/add']">Add transaction</a>
           <a class="dropdown-item" [routerLink]="['transactions/jurnal']">Jurnal</a>
           <div class="dropdown-divider"></div>
           <a class="dropdown-item" >Something else here</a>
         </div>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link alert-danger"  [routerLink]="['transactions/end']">End day</a>
       </li>
     </ul>
     <ul class="navbar-nav mr-sm-2">

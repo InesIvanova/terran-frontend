@@ -14,6 +14,8 @@ const filterUrl = path + 'transactions/filter/'
 
 const accouuntsUrl = path + 'accounts/accounts/';
 const categoriesUrl = path + 'accounts/categories/';
+const balanceUrl = path + 'accounts/balance/'
+
 
 @Injectable({
   providedIn: 'root'
@@ -68,6 +70,14 @@ export class TransactionService {
 
   searchTransfers(): Observable<Array<Transfer>> {
     return this.http.get<Array<Transfer>>(transferUrl);
+  }
+
+  endBalance(id) {
+    return this.http.put(accouuntsUrl+ id + '/', {})
+  }
+
+  getBalance(id) {
+    return this.http.get(balanceUrl + id + '/');
   }
 
 }

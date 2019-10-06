@@ -10,6 +10,10 @@ const routes: Routes = [
   {
     path: 'login',
     loadChildren: () => import('./authentication/authentication.module').then(mod => mod.AuthenticationModule)
+  },
+  {
+    path: 'p-and-l',
+    loadChildren: () => import('./profit-and-loss/profit-and-loss.module').then(mod => mod.ProfitAndLossModule)
   }
 ];
 

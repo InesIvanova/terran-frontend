@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
+
 import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -10,10 +11,11 @@ import { HttpClientModule } from '@angular/common/http'
 
 import { CoreModule } from './core/core.module';
 import { SharedModule } from './shared/shared.module';
+import { ProfitAndLossModule } from './profit-and-loss/profit-and-loss.module';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   imports: [
     BrowserModule,
@@ -22,6 +24,7 @@ import { SharedModule } from './shared/shared.module';
     HttpClientModule,
     SharedModule,
     CoreModule,
+    ProfitAndLossModule,
     RouterModule.forRoot([])
   ],
   bootstrap: [AppComponent]

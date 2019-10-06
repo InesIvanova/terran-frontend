@@ -1,0 +1,14 @@
+<div class="row">
+    <div class="col-lg-12">
+            <label for=""><h3>Select account:</h3></label>
+            <select name="" id=""  (change)="getBalance($event.target.value)">
+                <option  >Choose ---</option>
+                <option (select)="getBalance(acc.id)" *ngFor="let acc of accounts" value="{{acc.id}}" >{{acc.name}}</option>
+            </select>
+    </div>
+</div>
+
+<mwl-calendar-month-view
+  [viewDate]="viewDate"
+  [events]="events">
+</mwl-calendar-month-view>
