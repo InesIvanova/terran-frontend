@@ -10,10 +10,11 @@ import { Chart } from 'chart.js';
 import { BalanceCalendarComponent } from './balance-calendar/balance-calendar.component';
 import { CalendarModule, DateAdapter } from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
+import { JurnalComponent } from './jurnal/jurnal.component';
 
 
 @NgModule({
-  declarations: [NavbarComponent, PopUpComponent, FilterComponent, SubCategoryComponent, BalanceCalendarComponent],
+  declarations: [NavbarComponent, PopUpComponent, FilterComponent, SubCategoryComponent,JurnalComponent , BalanceCalendarComponent],
   imports: [
     CommonModule,
     ReactiveFormsModule,
@@ -23,6 +24,6 @@ import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
     }),
     RouterModule,
   ],
-  exports: [ReactiveFormsModule,NavbarComponent, PopUpComponent, FilterComponent, SubCategoryComponent, CalendarModule,BalanceCalendarComponent]
+  exports: [ReactiveFormsModule,NavbarComponent, PopUpComponent, FilterComponent, JurnalComponent, SubCategoryComponent, CalendarModule,BalanceCalendarComponent]
 })
 export class SharedModule { }

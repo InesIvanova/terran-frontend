@@ -1,0 +1,42 @@
+<div class="row mt-sm-5">
+  <div class="col-lg-3"></div>
+  <div class="col-lg-2"><button class="btn btn-primary" value="all" (click)="filterType($event.target.value)">All</button></div>
+  <div class="col-lg-2"><button class="btn btn-success" value="income" (click)="filterType($event.target.value)">Income</button></div>
+  <div class="col-lg-2"><button class="btn btn-danger" value="expense" (click)="filterType($event.target.value)">Income</button></div>
+  <div class="col-lg-3"></div>
+</div>
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">ID</th>
+      <th scope="col">Period (Период на транзакцията)</th>
+      <th scope="col">Account Date (дата на плащане)</th>
+      <th scope="col">Description (Описание)</th>
+      <th scope="col">Amount (Сума)</th>
+      <th scope="col">Debit Account (дебит акаунт)</th>
+      <th scope="col">Credit Account (кредит акаунт)</th>
+    </tr>
+  </thead>
+  <tbody>
+      <ng-container *ngFor="let transaction of transactions">
+    <tr [className]="transaction.type == 'income' ? 'alert-success' : 'alert-danger'">
+      <th scope="row">{{transaction.id}}</th>
+      <td>{{transaction.period}}</td>
+      <td>{{transaction.date}}</td>
+      <td>{{transaction.description}}</td>
+      <td> <span *ngIf="transaction.category?.group != 'income'">-</span>{{transaction.amount}}</td>
+      <td *ngIf="transaction.category?.group == 'income'">{{transaction.account.name}} <span *ngIf="transaction.sub_category">: {{transaction.sub_category}}</span> </td>
+      <td *ngIf="transaction.category?.group == 'income'">{{transaction.category.name}} <span *ngIf="transaction.sub_category">: {{transaction.sub_category}}</span> </td>
+      <td *ngIf="transaction.category?.group == 'expense'">{{transaction.category.name}} <span *ngIf="transaction.sub_category">: {{transaction.sub_category}}</span> </td>
+      <td *ngIf="transaction.category?.group == 'expense'">{{transaction.account.name}} <span *ngIf="transaction.sub_category">: {{transaction.sub_category}}</span> </td>
+      <td *ngIf="transaction.to_account">{{transaction.account.name}} <span *ngIf="transaction.sub_category">: {{transaction.sub_category}}</span> </td>
+      <td *ngIf="transaction.to_account">{{transaction.to_account.name}} <span *ngIf="transaction.sub_category">: {{transaction.sub_category}}</span> </td>
+
+    </tr>
+  </ng-container>
+  </tbody>
+</table>
+
+<div class="container-fluid">
+  <app-filter (filterChange)="getTransactions($event)"></app-filter>
+</div>

@@ -4,7 +4,6 @@ import { AddTransactionComponent } from './add-transaction/add-transaction.compo
 import { RouterModule, Routes } from '@angular/router';
 import { SharedModule } from '../shared/shared.module';
 import { AuthGuardService } from '../services/auth-guard.service';
-import { JurnalComponent } from './jurnal/jurnal.component';
 import { TransactionsComponent } from './transactions/transactions.component';
 import { EndDayComponent } from './end-day/end-day.component';
 
@@ -19,11 +18,11 @@ const routes: Routes = [
     component: AddTransactionComponent,
     canActivate: [AuthGuardService]
   },
-  {
-    path: 'jurnal',
-    component: JurnalComponent,
-    canActivate: [AuthGuardService]
-  },
+  // {
+  //   path: 'jurnal',
+  //   component: JurnalComponent,
+  //   canActivate: [AuthGuardService]
+  // },
   {
     path: 'end',
     component: EndDayComponent,
@@ -34,7 +33,6 @@ const routes: Routes = [
 @NgModule({
   declarations: [
     AddTransactionComponent,
-    JurnalComponent,
     TransactionsComponent,
     EndDayComponent
   ],
