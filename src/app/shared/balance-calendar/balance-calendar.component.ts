@@ -23,6 +23,11 @@ export class BalanceCalendarComponent implements OnInit {
     })
   }
 
+  dayClicked(event) {
+    //bool to display jurnal with query for all (expense/income) transaction
+    console.log('stana', event)
+  }
+
   getBalance(accId) {
     this.transactionService.getBalance(accId).subscribe(data => {
       this.events = new Array();

@@ -9,6 +9,7 @@
 </div>
 
 <mwl-calendar-month-view
+  (dayClicked)="dayClicked($event)"
   [viewDate]="viewDate"
   [events]="events">
 </mwl-calendar-month-view>
