@@ -10,7 +10,9 @@ import { TransactionService } from '../../services/transaction.service';
 })
 export class BalanceCalendarComponent implements OnInit {
   viewDate: Date = new Date();
-  events: Array<CalendarEvent> = [{"start": new Date("2019-10-06"), "end": new Date("2019-10-06"), "title": "37.0", "color": {"primary": "red", "secondary": "blue"}}];
+  
+  events: Array<CalendarEvent> = new Array();
+  event: CalendarEvent;
   accounts: Array<Account>
 
   constructor(private transactionService: TransactionService) { }
@@ -23,14 +25,14 @@ export class BalanceCalendarComponent implements OnInit {
 
   getBalance(accId) {
     this.transactionService.getBalance(accId).subscribe(data => {
-      console.log(data);
+      this.events = new Array();
       for (let index = 0; index < data['data'].length; index++) {
-        data['data'][index]['start'] = new Date(data['data'][0]['start'])
-        data['data'][index]['end'] = new Date(data['data'][0]['end'])
-
+        console.log(data['data'][index]['start'])
+        data['data'][index]['start'] = new Date(data['data'][index]['start'])
+        data['data'][index]['end'] = new Date(data['data'][index]['end']);
+        this.event = data['data'][index];
+        this.events.push(this.event)
       }
-      console.log('changed', data)
-      this.events = data['data']
     })
   }
 
