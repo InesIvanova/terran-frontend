@@ -32,6 +32,10 @@ export class BalanceCalendarComponent implements OnInit {
     })
   }
 
+  highlightDay(event, bool) {
+    console.log('hover day',event)
+  }
+
   dayClicked(event) {
     console.log('dayClicked, ', event.day.date)
     this.selectedDay = event.day.date;

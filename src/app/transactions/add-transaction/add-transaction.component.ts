@@ -45,6 +45,11 @@ export class AddTransactionComponent implements OnInit {
 
   get formControls() { return this.transactionForm.controls; }
 
+  get Category() {
+    console.log(this.transactionForm.controls['category'])
+    return this.transactionForm.controls['category']
+  }
+
   ngOnInit() {
     this.loadAccounts()
   }
