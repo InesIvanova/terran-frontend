@@ -10,6 +10,6 @@ export interface Transaction {
     amount: number;
     category: Category;
     account: Account;
-    type: string;
+    type?: string;
     to_account?: number;
 }

@@ -14,7 +14,12 @@ const routes: Routes = [
   {
     path: 'p-and-l',
     loadChildren: () => import('./profit-and-loss/profit-and-loss.module').then(mod => mod.ProfitAndLossModule)
-  }
+  },
+  {
+    path: 'search',
+    loadChildren: () => import('./core/core.module').then(mod => mod.CoreModule)
+  },
+
 ];
 
 @NgModule({

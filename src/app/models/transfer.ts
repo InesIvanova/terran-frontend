@@ -7,4 +7,5 @@ export interface Transfer {
     account: Account;
     to_ccount: Account;
     id: number;
+    type?: string;
 }

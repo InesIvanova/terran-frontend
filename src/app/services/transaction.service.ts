@@ -6,6 +6,7 @@ import { Transaction } from '../models/transaction';
 import { Account } from '../models/account';
 import { Category } from '../models/category';
 import { Transfer } from '../models/transfer';
+import { Balance } from '../models/Balance';
 
 const path = environment.apiUrl;
 const transactionUrl = path + 'transactions/';
@@ -31,6 +32,15 @@ export class TransactionService {
       data['to_account'] = toAccount;
     }
     return this.http.post<Transaction>(transactionUrl, data);
+  }
+
+  //the new one use this
+  getBalances(): Observable<Array<Balance>> {
+    return this.http.get<Array<Balance>>(transactionUrl + 'balance/');
+  }
+
+  getMonthlyRecords(data): Observable<Array<Transaction>> {
+    return this.http.post<Array<Transaction>>(transactionUrl + 'monthly_records/', data);
   }
 
   getAccounts(): Observable<Array<Account>> {
