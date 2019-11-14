@@ -9,7 +9,7 @@
                             <a [className]="isIncome == 'income' ? 'nav-link active' : 'nav-link'" (click)="changeIncomeExpense('income')">Income</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" [className]="isIncome == 'expense'  && !transfer ? 'nav-link active' : 'nav-link'" (click)="changeIncomeExpense('expense')">Expence</a>
+                            <a class="nav-link" [className]="isIncome == 'expense' ? 'nav-link active' : 'nav-link'" (click)="changeIncomeExpense('expense')">Expence</a>
                         </li>
                         <li class="nav-item">
                                 <a [className]="isIncome == 'transfer' ? 'nav-link active' : 'nav-link'" (click)="changeIncomeExpense('transfer')">Transfer</a>
