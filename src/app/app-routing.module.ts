@@ -1,8 +1,12 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { MyObservableComponent } from './demo_observables/my-observable/my-observable.component';
 
 
 const routes: Routes = [
+  {
+    path: 'my-obs', component: MyObservableComponent
+  },
   {
     path: 'transactions',
     loadChildren: () => import('./transactions/transactions.module').then(mod => mod.TransactionsModule)

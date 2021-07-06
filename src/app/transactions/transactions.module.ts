@@ -16,7 +16,7 @@ const routes: Routes = [
   {
     path: 'add',
     component: AddTransactionComponent,
-    canActivate: [AuthGuardService]
+    // canActivate: [AuthGuardService]
   },
   // {
   //   path: 'jurnal',

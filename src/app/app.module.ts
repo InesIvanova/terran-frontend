@@ -12,10 +12,12 @@ import { HttpClientModule } from '@angular/common/http'
 import { CoreModule } from './core/core.module';
 import { SharedModule } from './shared/shared.module';
 import { ProfitAndLossModule } from './profit-and-loss/profit-and-loss.module';
+import { MyObservableComponent } from './demo_observables/my-observable/my-observable.component';
 
 @NgModule({
   declarations: [
     AppComponent,
+    MyObservableComponent,
   ],
   imports: [
     BrowserModule,

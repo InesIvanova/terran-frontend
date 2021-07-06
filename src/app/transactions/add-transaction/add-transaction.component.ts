@@ -46,7 +46,6 @@ export class AddTransactionComponent implements OnInit {
   get formControls() { return this.transactionForm.controls; }
 
   get Category() {
-    console.log(this.transactionForm.controls['category'])
     return this.transactionForm.controls['category']
   }
 
@@ -62,8 +61,6 @@ export class AddTransactionComponent implements OnInit {
   loadCategories() {
     this.transactionService.getCategories().subscribe(categories => {
       this.categories = categories
-      console.log('cates', this.categories)
-      console.log('prop',this.categories[0].group)
       this.categoriesFiltered = this.categories.filter(c => c.group == this.isIncome );
       
     })
